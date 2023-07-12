@@ -1,0 +1,5 @@
+Compiling E:\Martin Hdez\Desktop\CCS 16F\877A\Práctica 20\Comunicación Serial on 24-feb.-22 at 15:49
+>>> Warning 203 "Comunicación Serial.c" Line 26(1,1): Condition always TRUE
+      Memory usage:   ROM=1%      RAM=2% - 2%
+      0 Errors,  1 Warnings.
+Build Successful.

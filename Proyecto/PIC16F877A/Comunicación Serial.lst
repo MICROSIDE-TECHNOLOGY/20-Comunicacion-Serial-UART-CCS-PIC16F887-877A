@@ -1,0 +1,148 @@
+CCS PCM C Compiler, Version 5.076, 56587               24-feb.-22 15:49
+
+               Filename:   E:\Martin Hdez\Desktop\CCS 16F\877A\Práctica 20\Comunicación Serial.lst
+
+               ROM used:   66 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           6 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... /* 
+....................  AUTOR: MICROSIDE TECHNOLOGY S.A. DE C.V. 
+....................  FECHA: JUNIO 2019 
+.................... */ 
+....................  
+.................... /* 
+.................... ------------------------------------------------------------------------------ 
+....................  Implementar comunicación serial para enviar un comando simple para prender y 
+....................  apagar un LED incluido en la tarjeta X-TRAINER, y un segundo comando para 
+....................  preguntar el estado de un botón. 
+.................... ------------------------------------------------------------------------------ 
+.................... */ 
+....................  
+.................... #include <16F877A.h>                            //Incluye el microcontrolador con el que se va a trabajar  
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #use delay(clock=20Mhz, crystal)                //Tipo de oscilador y frecuencia dependiendo del microcontrolador  
+....................  
+....................  
+.................... #use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7,STREAM=UART ) //Configuración del puerto UART 
+....................  
+.................... #define LED PIN_A1                                              //Pin donde está conectado el LED del X-TRAINER 
+.................... #define Boton PIN_A2                                            //Pin donde está conectado el BOTON del X-TRAINER 
+....................  
+.................... void main () 
+0004:  MOVF   03,W
+0005:  ANDLW  1F
+0006:  MOVWF  03
+0007:  MOVLW  81
+0008:  BSF    03.5
+0009:  MOVWF  19
+000A:  MOVLW  A6
+000B:  MOVWF  18
+000C:  MOVLW  90
+000D:  BCF    03.5
+000E:  MOVWF  18
+000F:  BSF    03.5
+0010:  BSF    1F.0
+0011:  BSF    1F.1
+0012:  BSF    1F.2
+0013:  BCF    1F.3
+0014:  MOVLW  07
+0015:  MOVWF  1C
+0016:  BCF    03.7
+....................  
+....................   { 
+....................    while (1) 
+....................   { 
+....................  
+....................    char Caracter = getc ();                         //Guarda el caracter 
+0017:  BCF    03.5
+0018:  BTFSS  0C.5
+0019:  GOTO   018
+001A:  MOVF   1A,W
+001B:  MOVWF  21
+....................    if (Caracter == '0') 
+001C:  MOVF   21,W
+001D:  SUBLW  30
+001E:  BTFSS  03.2
+001F:  GOTO   025
+....................     { 
+....................       output_low (LED);                             //Apaga el LED 
+0020:  BSF    03.5
+0021:  BCF    05.1
+0022:  BCF    03.5
+0023:  BCF    05.1
+....................     } 
+0024:  GOTO   040
+....................      
+....................      else if (Caracter == '1') 
+0025:  MOVF   21,W
+0026:  SUBLW  31
+0027:  BTFSS  03.2
+0028:  GOTO   02E
+....................     { 
+....................      output_HIGH (LED);                             //Enciende el LED 
+0029:  BSF    03.5
+002A:  BCF    05.1
+002B:  BCF    03.5
+002C:  BSF    05.1
+....................     } 
+002D:  GOTO   040
+....................      
+....................      else if (Caracter == '?') 
+002E:  MOVF   21,W
+002F:  SUBLW  3F
+0030:  BTFSS  03.2
+0031:  GOTO   040
+....................     { 
+....................         if (1 == input (Boton))                     //Pregunta el estado del botón 
+0032:  BSF    03.5
+0033:  BSF    05.2
+0034:  BCF    03.5
+0035:  BTFSS  05.2
+0036:  GOTO   03C
+....................           {                                                                    
+....................             Printf ("0");                           //Envía un 0 si el botón no está presionado 
+0037:  MOVLW  30
+0038:  BTFSS  0C.4
+0039:  GOTO   038
+003A:  MOVWF  19
+....................           } 
+003B:  GOTO   040
+....................            
+....................           else 
+....................          { 
+....................            Printf ("1");                            //Envía un 1 si el botón está presionado 
+003C:  MOVLW  31
+003D:  BTFSS  0C.4
+003E:  GOTO   03D
+003F:  MOVWF  19
+....................          } 
+....................       } 
+0040:  GOTO   018
+....................    } 
+.................... } 
+0041:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F72   HS NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

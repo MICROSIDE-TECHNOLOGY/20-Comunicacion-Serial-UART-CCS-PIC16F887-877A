@@ -1,0 +1,24 @@
+[PROJECT]
+Target=Comunicación Serial.hex
+Processor_Text=PIC16F887
+CCSVersion=5.076
+Compiler=PCM
+[Target Data]
+FileList=Comunicación Serial.c
+[Comunicación Serial.c]
+Type=4
+[mru-list]
+1=Comunicación Serial.c
+[Units]
+Count=1
+1=Comunicación Serial (main)
+
+[defines]
+buildcount=1
+
+[ProjectLog]
+Days=1
+D1=24-02-2022
+D1_L=2
+D1_L1=[56979]Started Editing.
+D1_L2=[56989]Project Closed.

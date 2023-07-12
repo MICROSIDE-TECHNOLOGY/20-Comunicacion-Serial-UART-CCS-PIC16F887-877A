@@ -1,0 +1,162 @@
+CCS PCM C Compiler, Version 5.076, 56587               24-feb.-22 15:49
+
+               Filename:   E:\Martin Hdez\Desktop\CCS 16F\887\Práctica 20\Comunicación Serial.lst
+
+               ROM used:   79 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           6 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... /* 
+....................  AUTOR: MICROSIDE TECHNOLOGY S.A. DE C.V. 
+....................  FECHA: JUNIO 2019 
+.................... */ 
+....................  
+.................... /* 
+.................... ------------------------------------------------------------------------------ 
+....................  Implementar comunicación serial para enviar un comando simple para prender y 
+....................  apagar un LED incluido en la tarjeta X-TRAINER, y un segundo comando para 
+....................  preguntar el estado de un botón. 
+.................... ------------------------------------------------------------------------------ 
+.................... */ 
+....................  
+.................... #include <16F887.h>                            //Incluye el microcontrolador con el que se va a trabajar  
+.................... //////////// Standard Header file for the PIC16F887 device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F887 
+....................  
+.................... #list 
+....................  
+.................... #use delay(clock=20Mhz, crystal)                //Tipo de oscilador y frecuencia dependiendo del microcontrolador  
+....................  
+....................  
+.................... #use rs232(baud=9600, xmit=PIN_C6, rcv=PIN_C7,STREAM=UART ) //Configuración del puerto UART 
+....................  
+.................... #define LED PIN_A1                                              //Pin donde está conectado el LED del X-TRAINER 
+.................... #define Boton PIN_A2                                            //Pin donde está conectado el BOTON del X-TRAINER 
+....................  
+.................... void main () 
+0004:  MOVF   03,W
+0005:  ANDLW  1F
+0006:  MOVWF  03
+0007:  BSF    03.5
+0008:  BSF    03.6
+0009:  BSF    07.3
+000A:  MOVLW  08
+000B:  BCF    03.6
+000C:  MOVWF  19
+000D:  MOVLW  02
+000E:  MOVWF  1A
+000F:  MOVLW  A6
+0010:  MOVWF  18
+0011:  MOVLW  90
+0012:  BCF    03.5
+0013:  MOVWF  18
+0014:  BSF    03.5
+0015:  BSF    03.6
+0016:  MOVF   09,W
+0017:  ANDLW  C0
+0018:  MOVWF  09
+0019:  BCF    03.6
+001A:  BCF    1F.4
+001B:  BCF    1F.5
+001C:  MOVLW  00
+001D:  BSF    03.6
+001E:  MOVWF  08
+001F:  BCF    03.5
+0020:  CLRF   07
+0021:  CLRF   08
+0022:  CLRF   09
+0023:  BCF    03.7
+....................  
+....................   { 
+....................    while (1) 
+....................   { 
+....................  
+....................    char Caracter = getc ();                         //Guarda el caracter 
+0024:  BCF    03.6
+0025:  BTFSS  0C.5
+0026:  GOTO   025
+0027:  MOVF   1A,W
+0028:  MOVWF  21
+....................    if (Caracter == '0') 
+0029:  MOVF   21,W
+002A:  SUBLW  30
+002B:  BTFSS  03.2
+002C:  GOTO   032
+....................     { 
+....................       output_low (LED);                             //Apaga el LED 
+002D:  BSF    03.5
+002E:  BCF    05.1
+002F:  BCF    03.5
+0030:  BCF    05.1
+....................     } 
+0031:  GOTO   04D
+....................      
+....................      else if (Caracter == '1') 
+0032:  MOVF   21,W
+0033:  SUBLW  31
+0034:  BTFSS  03.2
+0035:  GOTO   03B
+....................     { 
+....................      output_HIGH (LED);                             //Enciende el LED 
+0036:  BSF    03.5
+0037:  BCF    05.1
+0038:  BCF    03.5
+0039:  BSF    05.1
+....................     } 
+003A:  GOTO   04D
+....................      
+....................      else if (Caracter == '?') 
+003B:  MOVF   21,W
+003C:  SUBLW  3F
+003D:  BTFSS  03.2
+003E:  GOTO   04D
+....................     { 
+....................         if (1 == input (Boton))                     //Pregunta el estado del botón 
+003F:  BSF    03.5
+0040:  BSF    05.2
+0041:  BCF    03.5
+0042:  BTFSS  05.2
+0043:  GOTO   049
+....................           {                                                                    
+....................             Printf ("0");                           //Envía un 0 si el botón no está presionado 
+0044:  MOVLW  30
+0045:  BTFSS  0C.4
+0046:  GOTO   045
+0047:  MOVWF  19
+....................           } 
+0048:  GOTO   04D
+....................            
+....................           else 
+....................          { 
+....................            Printf ("1");                            //Envía un 1 si el botón está presionado 
+0049:  MOVLW  31
+004A:  BTFSS  0C.4
+004B:  GOTO   04A
+004C:  MOVWF  19
+....................          } 
+....................       } 
+004D:  GOTO   025
+....................    } 
+.................... } 
+004E:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2FE2   HS NOWDT PUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   BORV40 NOWRT
