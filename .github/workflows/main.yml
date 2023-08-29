@@ -1,0 +1,31 @@
+on: [push]
+
+jobs:
+  gist-sync:
+    name: gist-sync
+    runs-on: ubuntu-latest
+    steps:
+    #PIC16F877A
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: vhperaltaj/gist-sync-action@v1.0.0
+        id: PIC16F877A
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: https://gist.github.com/microside-mx/a20602da230f5673748d7fa3500035c2
+          gist_title: Práctica 20 - Comunicación Serial UART PIC16F877A CCS.c
+          gist_description: Prácticas PIC CCS
+          github_file: Proyecto/PIC16F877A/Comunicación Serial.c
+          file_encoding: WINDOWS-1252
+    #PIC16F887
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: vhperaltaj/gist-sync-action@v1.0.0
+        id: PIC16F887
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gist_url: https://gist.github.com/microside-mx/0259777a44ff5f386e57ac799f09c962
+          gist_title: Práctica 20 - Comunicación Serial UART PIC16F887 CCS.c
+          gist_description: Prácticas PIC CCS
+          github_file: Proyecto/PIC16F887/Comunicación Serial.c
+          file_encoding: WINDOWS-1252
