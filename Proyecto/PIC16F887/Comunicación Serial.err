@@ -1,5 +1,5 @@
-Compiling E:\Martin Hdez\Desktop\CCS 16F\887\Práctica 20\Comunicación Serial on 24-feb.-22 at 15:49
->>> Warning 203 "Comunicación Serial.c" Line 26(1,1): Condition always TRUE
+Compiling C:\Users\victo\OneDrive\Documentos\X-TRAINER-hands-on\CCS\PIC16F\20-Comunicacion-Serial-UART-CCS-PIC16F887-877A\Proyecto\PIC16F887\Comunicación Serial on 30-ago.-23 at 11:59
+>>> Warning 203 "C:\Users\victo\OneDrive\Documentos\X-TRAINER-hands-on\CCS\PIC16F\20-Comunicacion-Serial-UART-CCS-PIC16F887-877A\Proyecto\PIC16F887\Comunicación Serial.c" Line 29(1,1): Condition always TRUE
       Memory usage:   ROM=1%      RAM=2% - 2%
       0 Errors,  1 Warnings.
 Build Successful.

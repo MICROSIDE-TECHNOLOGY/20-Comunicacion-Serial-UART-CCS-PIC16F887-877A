@@ -1,3 +1,4 @@
 ÀÄComunicación Serial
    ÀÄmain  0/75  Ram=1
-      ÀÄ@cinit1  (Inline)  Ram=0
+      ÃÄ@cinit1  (Inline)  Ram=0
+      ÀÄ@cinit2  (Inline)  Ram=0

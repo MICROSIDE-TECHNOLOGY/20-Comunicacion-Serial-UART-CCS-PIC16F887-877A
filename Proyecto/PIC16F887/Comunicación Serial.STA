@@ -13,27 +13,27 @@ Stack size: 8
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   54    15 100  Comunicación Serial.c
-  786     0   0  ..\..\..\..\..\Program Files\PICC\Devices\16F887.h
+   46    15 100  Comunicación Serial.c
+  810     0   0  ..\..\..\..\..\..\..\..\..\..\Program Files (x86)\PICCDEMO\Devices\16F887.h
 ----- -----
-  840    15 Total
+  856    15 Total
 
 Page ROM  %  RAM    Vol Diff  Functions:
 ---- --- --- ---    --- ----  ----------
-0     75  95    1    290  3.5  main
- Inline         0    165  3.3  @cinit1
+0     75  95    1    298  3.5  main
+ Inline         0             @cinit1
 
 Program metrics:
-    Functions               2
+    Functions               1
     Statements              15
-    Comments                163
-    Volume (V)              546
-    Difficulty (D)          6.8
-    Effort to implement (E) 3695
-    Time to implement (T)   3 minutes
+    Comments                173
+    Volume (V)              300
+    Difficulty (D)          3.4
+    Effort to implement (E) 1016
+    Time to implement (T)   1 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   4
-    Maintainability (MI)    158
+    Maintainability (MI)    146
 
  Segment     Used  Free
 -----------  ----  ----
